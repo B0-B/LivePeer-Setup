@@ -62,6 +62,7 @@ cd ~ &&
 ./$pkgName/livepeer -transcoder 
 highlight "done." 'g'
 
-
-
+highlight "--------------------- Commands ----------------------" 'y'
+./$pkgName/livepeer -h
+highlight "-----------------------------------------------------" 'y'
 highlight "To start the transoding workload run the following command from your home (~) directory\n\t\t\t\t\t./$pkgName/livepeer -transcoder" 'w'
