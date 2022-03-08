@@ -43,15 +43,16 @@ function highlight () {
 
 highlight 'Prepare setup ...' 'b'
 
-
+# Download and install the node
 if [ ! -d $installPath/$pkgName ];then
-    highlight 'download LivePeer Go pkg ...' 'y'
+    highlight 'download LivePeer Go pkg ...' 'y' &&
     highlight "create LivePeer directory at \n\t\t\t\t$installPath/$pkgName" 'w' &&
     cd $installPath &&
     wget "https://github.com/livepeer/go-livepeer/releases/download/v$LP_version/$pkgName.tar.gz" &&
+    highlight 'unpack ...' 'y' &&
     tar -xvzf $pkgName.tar.gz &&
     rm $pkgName.tar.gz
-    highlight "finished installation." 'g'
+    highlight "finished download." 'g'
 else
     highlight "Installation found at $installPath/$pkgName" 'g'
 fi
