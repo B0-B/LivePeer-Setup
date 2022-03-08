@@ -41,9 +41,10 @@ function highlight () {
 }
 
 
-highlight 'Prepare setup ...' 'b'
+
 
 # Download and install LivePeer
+highlight 'Prepare Install ...' 'b'
 if [ ! -d $installPath/$pkgName ];then
     highlight 'download LivePeer Go pkg ...' 'y' &&
     highlight "create LivePeer directory at \n\t\t\t\t$installPath/$pkgName" 'w' &&
@@ -61,13 +62,22 @@ else
     highlight "Installation found at $installPath/$pkgName" 'g'
 fi
 
+cd ~
 
-highlight "Initialize node data ..." 'y'
-cd ~ &&
-./$pkgName/livepeer -transcoder 
+# check functionality
+highlight "double-check functionality ..." 'b' 
+highlight "--------------------- Commands ----------------------" 'y'
+./$pkgName/livepeer -h &&
+highlight "-----------------------------------------------------" 'y' &&
 highlight "done." 'g'
 
-highlight "--------------------- Commands ----------------------" 'y'
-./$pkgName/livepeer -h
-highlight "-----------------------------------------------------" 'y'
-highlight "To start the transoding workload run the following command from your home (~) directory\n\t\t\t\t\t./$pkgName/livepeer -transcoder" 'w'
+
+# try to connect to Arbitrum
+highlight "Connect to Arbitrum Network ..." 'b'
+highlight "please go to https://infura.io/ create an account and follow the steps to obtain a project ID. I.e. select 'create new project' > product: filecoin > define project name." 'y' &&
+highlight "Enter Project ID:" 'y' && 
+read $projectID
+./$pkgName/livepeer \
+    -network arbitrum-one-mainnet
+    -ethUrl https://arbitrum-mainnet.infura.io/v3/$projectID # Visit https://infura.io to obtain 
+highlight "done."
